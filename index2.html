@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel-Like Sorting and Filtering</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <table id="myTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>City</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table content will be dynamically generated here -->
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // URL to fetch main data for the table
+        var dataUrl = 'data.json';
+
+        // URL to fetch filter data for the "Age" column
+        var ageFilterUrl = 'age.json';
+
+        // Create DataTable with Bootstrap
+        var table = $('#myTable').DataTable({
+            ajax: {
+                url: dataUrl,
+                dataSrc: ''
+            },
+            columns: [
+                { data: 'Name', title: 'Name' },
+                { data: 'Age', title: 'Age' },
+                { data: 'City', title: 'City' }
+                // Add more columns as needed
+            ],
+            initComplete: function () {
+                // Fetch additional JSON for the "Age" column filtering
+                $.ajax({
+                    url: ageFilterUrl,
+                    dataType: 'json',
+                    success: function (ageFilterData) {
+                        console.log('Successfully fetched age filter data:', ageFilterData);
+
+                        // Enable per-column filtering with multi-select dropdown for the "Age" column only
+                        $('#myTable thead th').each(function (index) {
+                            var title = $(this).text();
+
+                            if (title === 'Age') {
+                                // Get unique values for the "Age" column from the fetched JSON
+                                var uniqueValues = Array.from(new Set(ageFilterData.map(row => row.Age)));
+                                uniqueValues.sort();
+
+                                // Populate the multi-select dropdown with unique values
+                                var select = $('<select class="form-control" multiple></select>');
+                                $.each(uniqueValues, function (i, value) {
+                                    select.append('<option value="' + value + '">' + value + '</option>');
+                                });
+
+                                // Apply filtering on multi-select dropdown change
+                                select.on('mousedown', function (e) {
+                                    e.preventDefault();
+                                    var originalValue = $(this).val();
+                                    var selectedValue = $(e.target).val();
+
+                                    // Toggle the selected value
+                                    if (originalValue && originalValue.includes(selectedValue)) {
+                                        originalValue = originalValue.filter(val => val !== selectedValue);
+                                    } else {
+                                        originalValue = originalValue ? originalValue.concat(selectedValue) : [selectedValue];
+                                    }
+
+                                    // Update the selected values and trigger change event
+                                    $(this).val(originalValue).trigger('change');
+
+                                    // Update URL with filter parameters
+                                    updateUrlParams({ 'age': originalValue.join(',') });
+                                });
+
+                                // Replace the content of the th with the multi-select dropdown
+                                $(this).html(select);
+
+                                // Apply initial filters based on URL parameters
+                                var urlParams = getUrlParams();
+                                if (urlParams.age) {
+                                    select.val(urlParams.age.split(',')).trigger('change');
+                                }
+                            }
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching age filter data:', status, error);
+                    }
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching main data:', status, error);
+            }
+        });
+
+        // Function to get URL parameters
+        function getUrlParams() {
+            var params = {};
+            var url = window.location.href;
+            var questionMarkIndex = url.indexOf('?');
+            if (questionMarkIndex !== -1) {
+                var queryString = url.slice(questionMarkIndex + 1);
+                var pairs = queryString.split('&');
+                for (var i = 0; i < pairs.length; i++) {
+                    var pair = pairs[i].split('=');
+                    params[pair[0]] = pair[1];
+                }
+            }
+            return params;
+        }
+
+        // Function to update URL parameters
+        function updateUrlParams(params) {
+            var url = window.location.href.split('?')[0];
+            var queryString = Object.keys(params).map(function (key) {
+                return key + '=' + params[key];
+            }).join('&');
+            window.history.replaceState({}, '', url + '?' + queryString);
+        }
+    });
+</script>
+
+</body>
+</html>
