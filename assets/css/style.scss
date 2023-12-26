@@ -5,4 +5,7 @@
 
 div#header { display: none; }
 section { margin-top: 0; }
-.credits { display: none; }
+.credits { 
+  display: none; 
+  margin: inherit;
+}
