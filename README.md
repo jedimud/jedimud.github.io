@@ -1,4 +1,5 @@
-# JediMUD Wiki
+# jedimud.github.io
+
 
 
 
