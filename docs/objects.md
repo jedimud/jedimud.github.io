@@ -1,0 +1,59 @@
+zones > The Museum of the Gods
+
+# a Jelsontronix super-stabber
+
+**12117 [ stabber , jelsontronix ]**
+
+Brief: `mL 20 !mcwpajrb 4d7(16.0) +3dex +4damR weapon(wield)`
+
+
+
+
+```
+Can be worn on: TAKE WIELD 
+Set char bits : NOBITS 
+Extra flags   : GLOW MAG !MAGE !CLER !WAR !PAL !APAL !JEDI LIMITED !RANGER !BARD 
+Weight: 2, Value: 1000000, Cost/day: 60000, Timer: -1
+Min level: 20, Max Lev: 0, Adm Lev: 0
+In room: -1 (Nowhere), In object: None, Carried by: Nobody 
+Worn by: Nobody
+Tohit: 0, Todam: 4d7, Avg Damage: 16.0. Message type: stab
+Serenity: 0, Intensity: 0
+Affections: +3 to DEX, +4 to DAMROLL
+Triggers:
+  None.
+```
+
+
+
+---
+
+
+**Brief Description**
+```
+A Jelsontronix superstabber, Model 101 is lying here.
+```
+
+**Full Description**
+```
+The superstabber is the latest and greatest achievement in offensive,
+backstabbing weaponry, by Jelsontronix INC.  The contoured black leather
+grip sheathes a powerful but retractable blade.  When the user pushes
+the small hidden catch in the grip, 9 inches of CO2-powered Damascus
+steel will plunge into the victim at 500 psi.  This fine instrument
+is guaranteed to pierce the toughest hides.
+
+An inscription is on the grip:
+
+"Jelsontronix -- making life better for the contemporary adventurer."
+
+R. Mussen                                       In loving memory
+CEO/Chief Engineer                                   R.S.K.
+Jelsontronix, Ltd.
+
+Underneath the first inscription, another is written in ultra-fine print:
+WARNING: Carrying this weapon is illegal in most provinces.  Check
+with your local authorities for more information.  We are not
+responsible for any deaths due to this weapon's use or misuse.
+```
+
