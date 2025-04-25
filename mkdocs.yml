@@ -1,7 +1,11 @@
 site_name: JMDB
 site_url: https://jedimud.github.io/
+repo_url: https://github.com/jedimud/jedimud.github.io
+repo_name: jedimud/jedimud.github.io
 theme:
   name: material
+  icon:
+    repo: fontawesome/brands/github
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default 
@@ -15,7 +19,5 @@ theme:
         name: Switch to system preference
   features:
     - search.suggest
-    - search.highlight
-    - search.share
 plugins:
   - search
