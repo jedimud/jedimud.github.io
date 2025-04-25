@@ -1,7 +1,7 @@
 site_name: JMDB
 site_url: https://jedimud.github.io/
 repo_url: https://github.com/jedimud/jedimud.github.io
-repo_name: jedimud/jedimud.github.io
+repo_name: jedimud
 theme:
   name: material
   icon:
@@ -21,3 +21,9 @@ theme:
     - search.suggest
 plugins:
   - search
+  - table-reader
+markdown_extensions:
+  - tables
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - javascripts/tablesort.js
