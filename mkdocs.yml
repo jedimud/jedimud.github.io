@@ -1,0 +1,4 @@
+site_name: JMDB
+site_url: https://jedimud.github.io/
+theme:
+  name: material
